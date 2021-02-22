@@ -5,6 +5,10 @@ import { RestaurantsModule } from './restaurants/restaurants.module';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
+import { Restaurant } from './restaurants/entities/restaurant.entity';
+import { UsersModule } from './users/users.module';
+import { CommonModule } from './common/common.module';
+import { User } from './users/entities/user.entity';
 
 @Module({
   imports: [
@@ -30,12 +34,13 @@ import * as Joi from 'joi';
       database: process.env.DB_NAME,
       synchronize: true,
       logging: true,
-      namingStrategy: new SnakeNamingStrategy(),
+      entities: [User],
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: true,
     }),
-    RestaurantsModule,
+    UsersModule,
+    CommonModule,
   ],
   controllers: [],
   providers: [],
